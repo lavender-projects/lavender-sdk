@@ -1,4 +1,4 @@
-import de.honoka.gradle.buildsrc.MavenPublish
+import de.honoka.gradle.buildsrc.MavenPublish.checkVersionOfProjects
 import de.honoka.gradle.buildsrc.MavenPublish.setupVersionAndPublishing
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "de.honoka.lavender"
-setupVersionAndPublishing("1.0.0-dev")
+setupVersionAndPublishing("1.0.0")
 
 allprojects {
     java {
@@ -60,5 +60,5 @@ subprojects {
 
 tasks.register("checkVersionOfProjects") {
     group = "publishing"
-    MavenPublish.checkVersionOfProjects()
+    checkVersionOfProjects()
 }
