@@ -12,13 +12,14 @@ private fun Project.publishing(configure: Action<PublishingExtension>) {
 }
 
 fun Project.setupVersionAndPublishing(version: String) {
+    val project = this
     this.version = version
     publishing {
         publications {
             create<MavenPublication>("maven") {
                 groupId = group as String
-                artifactId = name
-                this.version = version;
+                artifactId = project.name
+                this.version = version
                 from(components["java"])
             }
         }
