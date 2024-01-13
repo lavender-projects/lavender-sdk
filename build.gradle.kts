@@ -1,4 +1,5 @@
-import de.honoka.gradle.buildsrc.setupVersionAndPublishing
+import de.honoka.gradle.buildsrc.MavenPublish
+import de.honoka.gradle.buildsrc.MavenPublish.setupVersionAndPublishing
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -55,4 +56,9 @@ subprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
     group = rootProject.group
+}
+
+tasks.register("checkVersionOfProjects") {
+    group = "publishing"
+    MavenPublish.checkVersionOfProjects()
 }
