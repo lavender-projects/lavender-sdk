@@ -81,5 +81,5 @@ jobs:
           git config --global user.name 'Kosaka Bun'
           git config --global user.email 'kosaka-bun@qq.com'
           git add .
-          git commit -m 'Update lavender-api'
+          git commit -m 'Update lavender-sdk'
           git push

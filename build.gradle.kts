@@ -1,5 +1,4 @@
 import de.honoka.gradle.buildsrc.MavenPublish.checkVersionOfProjects
-import de.honoka.gradle.buildsrc.MavenPublish.setupVersionAndPublishing
 import de.honoka.gradle.buildsrc.Versions
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -11,18 +10,20 @@ plugins {
     //plugins
     java
     `maven-publish`
-    id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version versions.kotlin
+    id("io.spring.dependency-management") version "1.0.11.RELEASE" apply false
+    kotlin("jvm") version versions.kotlin apply false
 }
 
 group = "de.honoka.lavender"
-setupVersionAndPublishing("1.0.0")
+version = "1.0.0"
 
-allprojects {
+subprojects {
     apply(plugin = "java")
     apply(plugin = "maven-publish")
     apply(plugin = "io.spring.dependency-management")
     apply(plugin = "org.jetbrains.kotlin.jvm")
+
+    group = rootProject.group
 
     java {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -60,10 +61,6 @@ allprojects {
             }
         }
     }
-}
-
-subprojects {
-    group = rootProject.group
 }
 
 tasks.register("checkVersionOfProjects") {
