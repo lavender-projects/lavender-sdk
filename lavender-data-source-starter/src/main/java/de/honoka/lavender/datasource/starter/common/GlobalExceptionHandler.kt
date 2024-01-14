@@ -1,4 +1,4 @@
-package de.honoka.lavender.datasource.starter.component
+package de.honoka.lavender.datasource.starter.common
 
 import de.honoka.lavender.datasource.starter.LavenderDataSourceStarterProperties
 import de.honoka.sdk.util.framework.web.ApiResponse
