@@ -13,7 +13,9 @@ class LavenderDataSourceStarterConfig
 @ConfigurationProperties(LavenderDataSourceStarterProperties.PREFIX)
 data class LavenderDataSourceStarterProperties(
 
-    var enableDefaultGlobalExceptionHandler: Boolean? = null
+    var enableDefaultGlobalExceptionHandler: Boolean? = null,
+
+    var serverName: String? = null
 ) {
 
     companion object {
