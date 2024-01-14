@@ -8,7 +8,7 @@ plugins {
     kotlin("plugin.spring") version versions.kotlin
 }
 
-setupVersionAndPublishing("1.0.0")
+setupVersionAndPublishing("1.0.1-dev")
 
 dependencyManagement {
     imports {
