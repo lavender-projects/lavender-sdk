@@ -17,3 +17,5 @@ pluginManagement {
 }
 
 rootProject.name = "lavender-api"
+
+include("lavender-data-source-starter")
