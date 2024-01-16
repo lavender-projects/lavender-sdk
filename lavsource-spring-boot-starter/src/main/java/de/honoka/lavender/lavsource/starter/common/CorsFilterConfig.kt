@@ -1,4 +1,4 @@
-package de.honoka.lavender.datasource.starter.common
+package de.honoka.lavender.lavsource.starter.common
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

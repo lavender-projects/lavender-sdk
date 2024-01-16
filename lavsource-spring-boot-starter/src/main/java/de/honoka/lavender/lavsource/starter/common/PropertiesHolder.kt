@@ -1,4 +1,4 @@
-package de.honoka.lavender.datasource.starter.common
+package de.honoka.lavender.lavsource.starter.common
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component

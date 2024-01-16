@@ -20,4 +20,4 @@ pluginManagement {
 rootProject.name = "lavender-sdk"
 
 include("lavender-api")
-include("lavender-data-source-starter")
+include("lavsource-spring-boot-starter")

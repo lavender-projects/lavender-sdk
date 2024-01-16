@@ -1,17 +1,17 @@
-package de.honoka.lavender.datasource.starter
+package de.honoka.lavender.lavsource.starter
 
 import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.ComponentScan
 
-@EnableConfigurationProperties(LavenderDataSourceStarterProperties::class)
-@ComponentScan("de.honoka.lavender.datasource.starter")
+@EnableConfigurationProperties(LavsourceStarterProperties::class)
+@ComponentScan("de.honoka.lavender.lavsource.starter")
 @AutoConfiguration
-class LavenderDataSourceStarterConfig
+class LavsourceStarterConfig
 
-@ConfigurationProperties(LavenderDataSourceStarterProperties.PREFIX)
-data class LavenderDataSourceStarterProperties(
+@ConfigurationProperties(LavsourceStarterProperties.PREFIX)
+data class LavsourceStarterProperties(
 
     var enableDefaultGlobalExceptionHandler: Boolean? = null,
 
@@ -20,6 +20,6 @@ data class LavenderDataSourceStarterProperties(
 
     companion object {
 
-        const val PREFIX = "lavender.datasource"
+        const val PREFIX = "lavender.lavsource"
     }
 }

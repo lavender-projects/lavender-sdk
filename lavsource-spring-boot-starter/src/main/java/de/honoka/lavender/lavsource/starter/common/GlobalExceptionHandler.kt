@@ -1,6 +1,6 @@
-package de.honoka.lavender.datasource.starter.common
+package de.honoka.lavender.lavsource.starter.common
 
-import de.honoka.lavender.datasource.starter.LavenderDataSourceStarterProperties
+import de.honoka.lavender.lavsource.starter.LavsourceStarterProperties
 import de.honoka.sdk.util.framework.web.ApiResponse
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.http.HttpStatus
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 import javax.servlet.http.HttpServletResponse
 
 @ConditionalOnProperty(
-    prefix = LavenderDataSourceStarterProperties.PREFIX,
+    prefix = LavsourceStarterProperties.PREFIX,
     name = [ "enableDefaultGlobalExceptionHandler" ],
     havingValue = "true",
     matchIfMissing = true

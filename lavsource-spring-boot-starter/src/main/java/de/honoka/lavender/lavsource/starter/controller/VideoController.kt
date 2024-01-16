@@ -1,8 +1,8 @@
-package de.honoka.lavender.datasource.starter.controller
+package de.honoka.lavender.lavsource.starter.controller
 
 import de.honoka.lavender.api.data.*
-import de.honoka.lavender.datasource.starter.service.VideoService
-import de.honoka.lavender.datasource.starter.util.VideoUtils
+import de.honoka.lavender.lavsource.starter.service.VideoService
+import de.honoka.lavender.lavsource.starter.util.VideoUtils
 import de.honoka.sdk.util.framework.web.ApiResponse
 import org.springframework.http.HttpHeaders
 import org.springframework.web.bind.annotation.*
