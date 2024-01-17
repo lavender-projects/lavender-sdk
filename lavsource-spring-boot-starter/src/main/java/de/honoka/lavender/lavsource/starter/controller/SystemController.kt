@@ -1,6 +1,7 @@
 package de.honoka.lavender.lavsource.starter.controller
 
 import de.honoka.lavender.lavsource.starter.LavsourceStarterProperties
+import de.honoka.sdk.util.framework.web.ApiException
 import de.honoka.sdk.util.framework.web.ApiResponse
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -19,7 +20,7 @@ class SystemController(
     @GetMapping("/ping")
     fun ping(@RequestParam(required = false) serverName: String?): ApiResponse<Unit> {
         if(serverName != starterProperties.serverName) {
-            throw Exception("传入的服务器名称与实际名称（${starterProperties.serverName}）不匹配")
+            throw ApiException("传入的服务器名称与实际名称（${starterProperties.serverName}）不匹配")
         }
         return ApiResponse.success(null)
     }

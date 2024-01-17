@@ -8,7 +8,7 @@ plugins {
     kotlin("plugin.spring") version versions.kotlin
 }
 
-setupVersionAndPublishing("1.0.0")
+setupVersionAndPublishing("1.0.1-dev")
 
 dependencyManagement {
     imports {
@@ -26,7 +26,7 @@ dependencies {
         annotationProcessor(it)
     })
     implementation("de.honoka.sdk:honoka-utils:1.0.8")
-    implementation("de.honoka.sdk:honoka-framework-utils:1.0.2")
+    implementation("de.honoka.sdk:honoka-framework-utils:1.0.3")
     implementation("cn.hutool:hutool-all:5.8.18")
     implementation("org.hibernate.validator:hibernate-validator")
 }
