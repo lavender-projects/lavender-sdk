@@ -1,10 +1,13 @@
 package de.honoka.lavender.lavsource.starter.common
 
+import de.honoka.lavender.lavsource.starter.LavsourceStarterProperties
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
 @Component
-class PropertiesHolder {
+class PropertiesHolder(
+    private val lavsourceStarterProperties: LavsourceStarterProperties
+) {
 
     @Value("\${server.port:8080}")
     var serverPort: Int? = null
@@ -13,7 +16,7 @@ class PropertiesHolder {
     var serverContextPath: String? = null
 
     val serverAccessUrlPrefix: String
-        get() = "http://localhost:$serverPort".let {
+        get() = "http://${lavsourceStarterProperties.remoteAccessHostName ?: "localhost"}:$serverPort".let {
             if(serverContextPath?.isBlank() == false) "$it/$serverContextPath" else it
         }
 }
