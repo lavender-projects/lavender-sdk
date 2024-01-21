@@ -23,8 +23,10 @@ object VideoUtils {
             try {
                 IoUtil.copy(videoStream, outputStream)
             } catch(t: Throwable) {
-                originalResponse.close()
-                outputStream.flush()
+                runCatching {
+                    originalResponse.close()
+                    outputStream.flush()
+                }
             }
         }
     }
