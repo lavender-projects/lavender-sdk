@@ -30,3 +30,9 @@ dependencies {
     implementation("cn.hutool:hutool-all:5.8.18")
     implementation("org.hibernate.validator:hibernate-validator")
 }
+
+tasks {
+    compileJava {
+        dependsOn(":lavender-api:publish")
+    }
+}

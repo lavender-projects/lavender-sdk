@@ -38,7 +38,7 @@ object MavenPublish {
             if(!passed) return@forEach
             //若project未设置version，则这里取到的version值为unspecified
             println("${it.name}=${it.version}")
-            passed = it.version.toString().toLowerCase().run {
+            passed = it.version.toString().lowercase().run {
                 !(isEmpty() || this == "unspecified" || contains("dev"))
             }
         }

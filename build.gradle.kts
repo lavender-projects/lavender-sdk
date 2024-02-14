@@ -65,5 +65,7 @@ subprojects {
 
 tasks.register("checkVersionOfProjects") {
     group = "publishing"
-    checkVersionOfProjects()
+    doLast {
+        checkVersionOfProjects()
+    }
 }

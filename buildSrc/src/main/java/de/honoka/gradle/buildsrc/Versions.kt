@@ -9,6 +9,6 @@ object Versions {
 
         const val springBootVersion  = "2.7.5"
 
-        const val lavenderApiVersion = "1.0.0"
+        const val lavenderApiVersion = "1.0.1-dev"
     }
 }

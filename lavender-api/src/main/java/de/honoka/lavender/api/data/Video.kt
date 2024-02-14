@@ -4,6 +4,8 @@ data class RecommendedVideoItem(
 
     var videoId: String? = null,
 
+    var lavsourceId: String? = null,
+
     var title: String? = null,
 
     var author: String? = null,
@@ -35,6 +37,8 @@ data class DanmakuInfo(
 data class VideoDetails(
 
     var id: String? = null,
+
+    var lavsourceId: String? = null,
 
     var uploader: UserInfo = UserInfo(),
 

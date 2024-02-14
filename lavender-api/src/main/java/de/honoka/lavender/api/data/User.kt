@@ -4,6 +4,8 @@ data class UserInfo(
 
     var id: Long? = null,
 
+    var lavsourceId: String? = null,
+
     var name: String? = null,
 
     var avatar: String? = null,
