@@ -7,7 +7,7 @@ interface VideoService {
 
     fun getRecommendedVideoList(): List<RecommendedVideoItem>
 
-    fun getVideoDetail(id: String): VideoDetails
+    fun getVideoDetails(id: String): VideoDetails
 
     fun getCommentList(videoId: String, sortBy: String, page: Int): CommentList
 

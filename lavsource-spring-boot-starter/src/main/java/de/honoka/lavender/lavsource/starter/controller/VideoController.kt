@@ -19,9 +19,9 @@ class VideoController(
         videoService.getRecommendedVideoList()
     )
 
-    @GetMapping("/detail")
-    fun videoDetail(@RequestParam id: String): ApiResponse<VideoDetails> = ApiResponse.success(
-        videoService.getVideoDetail(id)
+    @GetMapping("/details")
+    fun videoDetails(@RequestParam id: String): ApiResponse<VideoDetails> = ApiResponse.success(
+        videoService.getVideoDetails(id)
     )
 
     @GetMapping("/comment/list")
