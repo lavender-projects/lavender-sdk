@@ -11,7 +11,7 @@ class ApplicationContextHolder : ApplicationContextAware {
 
         lateinit var context: ApplicationContext
 
-        inline fun <reified T> getBean() = context.getBean(T::class.java)
+        inline fun <reified T> getBean(): T = context.getBean(T::class.java)
     }
 
     override fun setApplicationContext(applicationContext: ApplicationContext) {

@@ -33,7 +33,7 @@ data class DanmakuInfo(
 
     var colorRgb: String? = null,
 
-    var senderIdHash: String? = null
+    var senderId: String? = null
 )
 
 data class VideoDetails(
@@ -81,7 +81,7 @@ data class VideoDetails(
 
 data class VideoEpisodeInfo(
 
-    var id: Long? = null,
+    var id: String? = null,
 
     var name: String? = null
 )
@@ -90,7 +90,7 @@ data class VideoStreamInfo(
 
     var type: String? = null,
 
-    var qualityId: Int? = null,
+    var qualityId: String? = null,
 
     var qualityName: String? = null,
 

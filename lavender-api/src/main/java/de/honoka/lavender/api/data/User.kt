@@ -2,7 +2,7 @@ package de.honoka.lavender.api.data
 
 data class UserInfo(
 
-    var id: Long? = null,
+    var id: String? = null,
 
     var lavsourceId: String? = null,
 

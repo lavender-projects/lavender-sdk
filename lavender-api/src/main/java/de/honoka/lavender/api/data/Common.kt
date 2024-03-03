@@ -19,7 +19,7 @@ data class CommentList(
 
 data class Comment(
 
-    var id: Long? = null,
+    var id: String? = null,
 
     var sender: UserInfo? = null,
 
