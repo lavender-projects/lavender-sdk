@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
 @Component
-class PropertiesHolder(
-    private val lavsourceStarterProperties: LavsourceStarterProperties
-) {
+class PropertiesHolder(private val lavsourceStarterProperties: LavsourceStarterProperties) {
 
     @Value("\${server.port:8080}")
     var serverPort: Int? = null
@@ -15,8 +13,9 @@ class PropertiesHolder(
     @Value("\${server.servlet.context-path:}")
     var serverContextPath: String? = null
 
-    val serverAccessUrlPrefix: String
-        get() = "http://${lavsourceStarterProperties.remoteAccessHostName ?: "localhost"}:$serverPort".let {
+    val serverAccessUrlPrefix: String get() = run {
+        "http://${lavsourceStarterProperties.remoteAccessHostName ?: "localhost"}:$serverPort".let {
             if(serverContextPath?.isBlank() == false) "$it/$serverContextPath" else it
         }
+    }
 }

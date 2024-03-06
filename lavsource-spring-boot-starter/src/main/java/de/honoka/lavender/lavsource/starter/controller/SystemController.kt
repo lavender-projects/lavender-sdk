@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RequestMapping("/system")
 @RestController
-class SystemController(
-    private val starterProperties: LavsourceStarterProperties
-) {
+class SystemController(private val starterProperties: LavsourceStarterProperties) {
 
     @GetMapping("/serverName")
     fun serverName(): ApiResponse<String> = ApiResponse.success(starterProperties.serverName)

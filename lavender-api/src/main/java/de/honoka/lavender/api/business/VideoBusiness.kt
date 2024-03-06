@@ -1,9 +1,9 @@
-package de.honoka.lavender.lavsource.starter.service
+package de.honoka.lavender.api.business
 
 import cn.hutool.http.HttpResponse
 import de.honoka.lavender.api.data.*
 
-interface VideoService {
+interface VideoBusiness {
 
     fun getRecommendedVideoList(): List<RecommendedVideoItem>
 
