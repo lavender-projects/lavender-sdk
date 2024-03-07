@@ -3,7 +3,7 @@ package de.honoka.lavender.api.business
 import cn.hutool.http.HttpResponse
 import de.honoka.lavender.api.data.*
 
-interface VideoBusiness {
+interface AbstractVideoBusiness {
 
     fun getRecommendedVideoList(): List<RecommendedVideoItem>
 

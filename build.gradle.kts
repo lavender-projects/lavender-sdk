@@ -1,6 +1,7 @@
 import de.honoka.gradle.buildsrc.MavenPublish.checkVersionOfProjects
 import de.honoka.gradle.buildsrc.Versions
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.nio.charset.StandardCharsets
 
 plugins {
     //plugins块中不会读取import语句中导入的类
@@ -27,7 +28,7 @@ subprojects {
 
     java {
         sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = sourceCompatibility
         withSourcesJar()
     }
 
@@ -42,11 +43,11 @@ subprojects {
 
     tasks {
         compileJava {
-            options.encoding = "UTF-8"
+            options.encoding = StandardCharsets.UTF_8.name()
         }
 
         withType<KotlinCompile> {
-            kotlinOptions.jvmTarget = java.targetCompatibility.toString()
+            kotlinOptions.jvmTarget = java.sourceCompatibility.toString()
         }
 
         test {

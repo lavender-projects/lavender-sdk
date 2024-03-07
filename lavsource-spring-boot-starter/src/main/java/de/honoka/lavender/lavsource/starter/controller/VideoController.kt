@@ -1,6 +1,6 @@
 package de.honoka.lavender.lavsource.starter.controller
 
-import de.honoka.lavender.api.business.VideoBusiness
+import de.honoka.lavender.api.business.AbstractVideoBusiness
 import de.honoka.lavender.api.data.*
 import de.honoka.lavender.lavsource.starter.util.VideoUtils
 import de.honoka.sdk.util.framework.web.ApiResponse
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse
 
 @RequestMapping("/video")
 @RestController
-class VideoController(private val videoBusiness: VideoBusiness) {
+class VideoController(private val videoBusiness: AbstractVideoBusiness) {
 
     @GetMapping("/recommended")
     fun recommendedVideoList(): ApiResponse<List<RecommendedVideoItem>> = ApiResponse.success(
