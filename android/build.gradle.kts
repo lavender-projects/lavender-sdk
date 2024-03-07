@@ -1,5 +1,3 @@
-import de.honoka.gradle.buildsrc.defineJarTask
-
 plugins {
     val versions = de.honoka.gradle.buildsrc.Versions.Android
     //plugins
@@ -42,6 +40,4 @@ subprojects {
             jvmTarget = compileOptions.sourceCompatibility.toString()
         }
     }
-
-    defineJarTask()
 }

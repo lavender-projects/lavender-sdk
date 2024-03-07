@@ -45,9 +45,8 @@ object MavenPublish {
                     pom.setAndroidAarPomDependencies(project)
                     afterEvaluate {
                         val artifacts = listOf(
-                            tasks["releaseSourcesJar"],
                             tasks["bundleReleaseAar"],
-                            tasks["jar"]
+                            tasks["releaseSourcesJar"]
                         )
                         setArtifacts(artifacts)
                     }
