@@ -8,9 +8,13 @@ android {
 }
 
 dependencies {
-    implementation("de.honoka.lavender:lavender-api:${Versions.Android.LavsourceAppSdk.lavenderApi}".also {
+    listOf(
+        "de.honoka.lavender:lavender-api:${Versions.Android.LavsourceAppSdk.lavenderApi}",
+        "de.honoka.sdk:honoka-android-utils:${Versions.Android.LavsourceAppSdk.honokaAndroidUtils}"
+    ).forEach {
+        implementation(it)
         api(it)
-    })
+    }
     implementation("de.honoka.sdk:honoka-kotlin-utils:1.0.0-dev")
     implementation("de.honoka.sdk:honoka-framework-utils:1.0.4")
     implementation("cn.hutool:hutool-all:5.8.18")

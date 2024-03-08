@@ -24,6 +24,8 @@ object Versions {
         object LavsourceAppSdk {
 
             const val lavenderApi = "1.0.1-dev"
+
+            const val honokaAndroidUtils = "1.1.0-dev"
         }
     }
 }
