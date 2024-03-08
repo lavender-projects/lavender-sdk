@@ -4,7 +4,7 @@ import de.honoka.gradle.buildsrc.Versions
 setupAndroidAarVersionAndPublishing("1.0.0-dev")
 
 android {
-    namespace = "${project.group}.android.lavsource.sdk"
+    namespace = "${project.group}.sdk.android.lavsource"
 }
 
 dependencies {

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "${project.group}.android"
+    namespace = "${project.group}.sdk.android"
     compileSdk = 33
 }
 

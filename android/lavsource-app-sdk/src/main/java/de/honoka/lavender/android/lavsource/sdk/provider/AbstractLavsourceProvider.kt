@@ -30,11 +30,11 @@ abstract class AbstractLavsourceProvider : BaseContentProvider() {
         }
     }
 
-    protected abstract fun newBusinessList(): List<Any>
-
-    init {
+    override fun onCreate(): Boolean = super.onCreate().apply {
         checkOrInitBusinessMap()
     }
+
+    protected abstract fun newBusinessList(): List<Any>
 
     private fun checkOrInitBusinessMap() {
         businessList?.let { return }
