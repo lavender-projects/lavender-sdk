@@ -1,8 +1,10 @@
 package de.honoka.lavender.android.lavsource.sdk.provider
 
+import android.app.Application
 import cn.hutool.json.JSON
 import cn.hutool.json.JSONArray
 import cn.hutool.json.JSONObject
+import de.honoka.lavender.android.lavsource.sdk.util.ApplicationUtils
 import de.honoka.sdk.util.android.common.BaseContentProvider
 import de.honoka.sdk.util.android.common.toMethodArgs
 import java.lang.reflect.Method
@@ -30,7 +32,11 @@ abstract class AbstractLavsourceProvider : BaseContentProvider() {
         }
     }
 
+    protected abstract val applicationUtilsAbstractPart: ApplicationUtils.AbstractPart
+
     override fun onCreate(): Boolean = super.onCreate().apply {
+        ApplicationUtils.initAbstractPart(applicationUtilsAbstractPart)
+        ApplicationUtils.initApplication(context!!.applicationContext as Application)
         checkOrInitBusinessMap()
     }
 

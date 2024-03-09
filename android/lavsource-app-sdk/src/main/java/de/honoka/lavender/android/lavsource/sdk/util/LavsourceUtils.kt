@@ -3,6 +3,7 @@ package de.honoka.lavender.android.lavsource.sdk.util
 import cn.hutool.json.JSONArray
 import cn.hutool.json.JSONObject
 import de.honoka.lavender.android.lavsource.sdk.provider.LavsourceProviderRequest
+import de.honoka.lavender.api.util.LavsourceUtils
 import de.honoka.sdk.util.android.common.contentResolverTypedCall
 import de.honoka.sdk.util.android.server.HttpServerVariables
 import java.lang.reflect.ParameterizedType
@@ -11,14 +12,14 @@ import java.nio.charset.StandardCharsets
 import kotlin.reflect.KFunction
 import kotlin.reflect.jvm.javaMethod
 
-object LavsourceUtils {
+object LavsourceUtilsAbstractPartImpl : LavsourceUtils.AbstractPart {
 
-    fun getProxiedImageUrl(url: String) = run {
+    override fun getProxiedImageUrl(url: String): String = run {
         val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.name())
         HttpServerVariables.getUrlByPath("/image/proxy?url=$encodedUrl")
     }
 
-    fun getProxiedMediaStreamUrl(url: String) = run {
+    override fun getProxiedMediaStreamUrl(url: String): String = run {
         val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.name())
         HttpServerVariables.getUrlByPath("/video/stream?url=$encodedUrl")
     }

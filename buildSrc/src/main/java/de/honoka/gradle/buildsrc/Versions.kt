@@ -5,21 +5,17 @@ object Versions {
 
     object Jvm {
 
-        const val kotlin = "1.6.21"
-
         object LavenderDataSourceStarter {
 
             const val springBootVersion  = "2.7.5"
 
             const val lavenderApiVersion = "1.0.1-dev"
         }
+
+        const val kotlin = "1.6.21"
     }
 
     object Android {
-
-        const val libraryPlugin = "8.0.0"
-
-        const val kotlin = "1.8.0"
 
         object LavsourceAppSdk {
 
@@ -27,5 +23,11 @@ object Versions {
 
             const val honokaAndroidUtils = "1.1.0-dev"
         }
+
+        const val libraryPlugin = "8.0.0"
+
+        const val kotlin = "1.8.0"
     }
+
+    const val honokaKotlinUtils = "1.0.0-dev"
 }

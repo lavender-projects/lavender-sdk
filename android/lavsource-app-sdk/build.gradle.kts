@@ -15,7 +15,6 @@ dependencies {
         implementation(it)
         api(it)
     }
-    implementation("de.honoka.sdk:honoka-kotlin-utils:1.0.0-dev")
     implementation("de.honoka.sdk:honoka-framework-utils:1.0.4")
     implementation("cn.hutool:hutool-all:5.8.18")
     testImplementation("junit:junit:4.13.2")
