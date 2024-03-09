@@ -32,7 +32,7 @@ class VideoController(private val videoBusiness: VideoBusiness) {
     @GetMapping("/comment/reply/list")
     fun commentReplyList(
         @RequestParam videoId: String,
-        @RequestParam commentId: Long,
+        @RequestParam commentId: String,
         @RequestParam(required = false, defaultValue = "1") page: Int
     ): ApiResponse<CommentList> = ApiResponse.success(videoBusiness.getCommentReplyList(videoId, commentId, page))
 
@@ -44,7 +44,7 @@ class VideoController(private val videoBusiness: VideoBusiness) {
     @GetMapping("/stream/urlList")
     fun streamUrlList(
         @RequestParam videoId: String,
-        @RequestParam episodeId: Long
+        @RequestParam episodeId: String
     ): ApiResponse<List<VideoStreamInfo>> = ApiResponse.success(videoBusiness.getStreamUrlList(videoId, episodeId))
 
     @GetMapping("/stream")
@@ -55,7 +55,7 @@ class VideoController(private val videoBusiness: VideoBusiness) {
     ) = VideoUtils.forwardVideoStream(videoBusiness.getVideoStreamResponse(url, range), response, range)
 
     @GetMapping("/danmaku/list")
-    fun danmakuList(@RequestParam episodeId: Long): ApiResponse<List<DanmakuInfo>> = ApiResponse.success(
+    fun danmakuList(@RequestParam episodeId: String): ApiResponse<List<DanmakuInfo>> = ApiResponse.success(
         videoBusiness.getDanmakuList(episodeId)
     )
 }

@@ -19,7 +19,7 @@ class VideoBusinessStub(private val packageName: String) : VideoBusiness {
         packageName, VideoBusiness::getCommentList, listOf(videoId, sortBy, page)
     )
 
-    override fun getCommentReplyList(videoId: String, commentId: Long, page: Int): CommentList = callLavsourceProvider(
+    override fun getCommentReplyList(videoId: String, commentId: String, page: Int): CommentList = callLavsourceProvider(
         packageName, VideoBusiness::getCommentReplyList, listOf(videoId, commentId, page)
     )
 
@@ -27,7 +27,7 @@ class VideoBusinessStub(private val packageName: String) : VideoBusiness {
         packageName, VideoBusiness::getEpisodeList, listOf(videoId)
     )
 
-    override fun getStreamUrlList(videoId: String, episodeId: Long): List<VideoStreamInfo> = callLavsourceProvider(
+    override fun getStreamUrlList(videoId: String, episodeId: String): List<VideoStreamInfo> = callLavsourceProvider(
         packageName, VideoBusiness::getStreamUrlList, listOf(videoId, episodeId)
     )
 
@@ -35,7 +35,7 @@ class VideoBusinessStub(private val packageName: String) : VideoBusiness {
         throw UnsupportedOperationException()
     }
 
-    override fun getDanmakuList(episodeId: Long): List<DanmakuInfo> = callLavsourceProvider(
+    override fun getDanmakuList(episodeId: String): List<DanmakuInfo> = callLavsourceProvider(
         packageName, VideoBusiness::getDanmakuList, listOf(episodeId)
     )
 }

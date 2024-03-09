@@ -3,10 +3,26 @@ package de.honoka.lavender.android.lavsource.sdk.util
 import cn.hutool.json.JSONArray
 import cn.hutool.json.JSONObject
 import de.honoka.lavender.android.lavsource.sdk.provider.LavsourceProviderRequest
-import de.honoka.sdk.util.android.common.contentResolverCall
+import de.honoka.sdk.util.android.common.contentResolverTypedCall
+import de.honoka.sdk.util.android.server.HttpServerVariables
 import java.lang.reflect.ParameterizedType
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 import kotlin.reflect.KFunction
 import kotlin.reflect.jvm.javaMethod
+
+object LavsourceUtils {
+
+    fun getProxiedImageUrl(url: String) = run {
+        val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.name())
+        HttpServerVariables.getUrlByPath("/image/proxy?url=$encodedUrl")
+    }
+
+    fun getProxiedMediaStreamUrl(url: String) = run {
+        val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.name())
+        HttpServerVariables.getUrlByPath("/video/stream?url=$encodedUrl")
+    }
+}
 
 inline fun <reified T> callLavsourceProvider(
     packageName: String, businessMethod: KFunction<*>, args: Iterable<Any?>? = null
@@ -28,7 +44,7 @@ inline fun <reified T> callLavsourceProvider(
      * 方法在调用其他应用后，得到的JSON数据中的field1字段的类型有关，只可能是基本数据类型、JSONObject或
      * JSONArray。
      */
-    val result = contentResolverCall<T>("${packageName}.provider.LavsourceProvider", args = request)
+    val result = contentResolverTypedCall<T>("${packageName}.provider.LavsourceProvider", args = request)
     val methodReturnType = businessJavaMethod.genericReturnType
     if(result !is MutableCollection<*> || methodReturnType !is ParameterizedType) return result
     @Suppress("UNCHECKED_CAST")

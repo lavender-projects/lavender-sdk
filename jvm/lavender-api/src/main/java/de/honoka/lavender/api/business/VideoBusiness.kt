@@ -11,13 +11,13 @@ interface VideoBusiness {
 
     fun getCommentList(videoId: String, sortBy: String, page: Int): CommentList
 
-    fun getCommentReplyList(videoId: String, commentId: Long, page: Int): CommentList
+    fun getCommentReplyList(videoId: String, commentId: String, page: Int): CommentList
 
     fun getEpisodeList(videoId: String): List<VideoEpisodeInfo>
 
-    fun getStreamUrlList(videoId: String, episodeId: Long): List<VideoStreamInfo>
+    fun getStreamUrlList(videoId: String, episodeId: String): List<VideoStreamInfo>
 
     fun getVideoStreamResponse(url: String, range: String?): HttpResponse
 
-    fun getDanmakuList(episodeId: Long): List<DanmakuInfo>
+    fun getDanmakuList(episodeId: String): List<DanmakuInfo>
 }
