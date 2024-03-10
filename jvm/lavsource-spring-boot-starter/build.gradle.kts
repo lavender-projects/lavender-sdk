@@ -19,17 +19,16 @@ dependencyManagement {
 }
 
 dependencies {
-    implementation("de.honoka.lavender:lavender-api:${
-        Versions.Jvm.LavenderDataSourceStarter.lavenderApiVersion
-    }".also {
-        api(it)
-    })
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-configuration-processor".also {
         annotationProcessor(it)
     })
-    implementation("de.honoka.sdk:honoka-utils:1.0.8")
+    implementation("de.honoka.lavender:lavender-api:${
+        Versions.Jvm.LavenderDataSourceStarter.lavenderApiVersion
+    }".also {
+        api(it)
+    })
     implementation("de.honoka.sdk:honoka-framework-utils:1.0.3")
     implementation("org.hibernate.validator:hibernate-validator")
 }

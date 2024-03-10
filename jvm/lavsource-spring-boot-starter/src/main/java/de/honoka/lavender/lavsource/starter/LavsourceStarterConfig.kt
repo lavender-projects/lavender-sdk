@@ -15,8 +15,6 @@ data class LavsourceStarterProperties(
 
     var enableDefaultGlobalExceptionHandler: Boolean? = null,
 
-    var serverName: String? = null,
-
     var remoteAccessHostName: String? = null
 ) {
 
