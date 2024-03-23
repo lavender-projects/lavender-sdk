@@ -96,5 +96,7 @@ data class VideoStreamInfo(
 
     var videoStreamUrl: String? = null,
 
-    var audioStreamUrl: String? = null
+    var audioStreamUrl: String? = null,
+
+    var dashManifest: String? = null
 )
