@@ -11,7 +11,7 @@ class LavsourceUtilsAbstractPartImpl(private val propertiesHolder: PropertiesHol
 
     override fun getProxiedImageUrl(url: String): String = run {
         val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.name())
-        "${propertiesHolder.serverAccessUrlPrefix}/platform/bilibili/image/proxy?url=$encodedUrl"
+        "${propertiesHolder.serverAccessUrlPrefix}/platform/test/image/proxy?url=$encodedUrl"
     }
 
     override fun getProxiedMediaStreamUrl(url: String): String = run {

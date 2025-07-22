@@ -60,7 +60,7 @@ data class VideoDetails(
 
     var likeCount: String? = null,
 
-    //bilibili独有，其他平台可用其他数据代替填入
+    //若平台没有这个数据，可用其他数据代替填入
     var coinCount: String? = null,
 
     var collectCount: String? = null,
