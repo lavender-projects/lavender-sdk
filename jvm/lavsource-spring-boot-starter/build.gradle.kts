@@ -1,34 +1,26 @@
-import de.honoka.gradle.buildsrc.MavenPublish.setupVersionAndPublishing
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.kotlin.spring)
 }
 
-setupVersionAndPublishing(libs.versions.lavsource.spring.boot.starter.get())
+version = libs.versions.p.lavsource.spring.boot.starter.get()
 
-dependencyManagement {
-    imports {
-        mavenBom(libs.spring.boot.dependencies.get().toString())
-    }
+honoka.basic.dependencies {
+    springBootBom()
 }
 
+//noinspection UseTomlInstead
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-configuration-processor".also {
-        annotationProcessor(it)
-    })
-    implementation(libs.jvm.lavender.api.also {
-        api(it)
-    })
-    implementation(libs.jvm.honoka.framework.utils)
+    val configProcessor = "org.springframework.boot:spring-boot-configuration-processor:${
+        libs.versions.d.spring.boot.get()
+    }"
+    kapt(configProcessor)
+    api(libs.lavender.api)
+    implementation(libs.honoka.spring.boot.starter)
     implementation("org.hibernate.validator:hibernate-validator")
 }
 
-tasks {
-    withType<KotlinCompile> {
-        dependsOn(":jvm:lavender-api:publish")
-    }
+honoka.basic.publishing {
+    default()
 }

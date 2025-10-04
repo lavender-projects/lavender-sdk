@@ -8,7 +8,6 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.util.pipeline.*
 
 @Suppress("MemberVisibilityCanBePrivate")
 abstract class AbstractMediaController {
@@ -20,12 +19,15 @@ abstract class AbstractMediaController {
         }
     }
 
-    private val imageProxy: PipelineInterceptor<Unit, ApplicationCall> = {
+    private val imageProxy: RoutingHandler = {
         val originalRes = getImageResponse(call)
-        call.respondBytes(originalRes.bodyBytes(), ContentType.parse(originalRes.header(HttpHeaders.ContentType)))
+        call.respondBytes(
+            originalRes.bodyBytes(),
+            ContentType.parse(originalRes.header(HttpHeaders.ContentType))
+        )
     }
 
-    private val videoStream: PipelineInterceptor<Unit, ApplicationCall> = {
+    private val videoStream: RoutingHandler = {
         val range = call.request.header(HttpHeaders.Range)
         VideoUtils.forwardVideoStream(getVideoResponse(call), call, range)
     }

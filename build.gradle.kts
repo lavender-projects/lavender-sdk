@@ -1,26 +1,18 @@
-import de.honoka.gradle.buildsrc.MavenPublish.defineCheckVersionOfProjectsTask
-
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    `maven-publish`
-    alias(libs.plugins.dependency.management)
+    alias(libs.plugins.honoka.basic)
 }
+
+version = libs.versions.p.root.get()
 
 allprojects {
     group = "de.honoka.lavender"
 }
 
-version = libs.versions.root.get()
-
-subprojects {
-    apply(plugin = "maven-publish")
-    apply(plugin = "io.spring.dependency-management")
-
+honoka.basic {
     publishing {
-        repositories {
-            mavenLocal()
-        }
+        defineCheckVersionTask()
     }
 }
 
-defineCheckVersionOfProjectsTask()
+libs.versions.d.kotlin.coroutines
+libs.versions.d.spring.boot

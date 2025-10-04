@@ -3,35 +3,36 @@ package de.honoka.lavender.android.lavsource.sdk.util
 import cn.hutool.json.JSONArray
 import cn.hutool.json.JSONObject
 import de.honoka.lavender.android.lavsource.sdk.provider.LavsourceProviderRequest
-import de.honoka.lavender.api.util.LavsourceUtils
-import de.honoka.sdk.util.android.common.contentResolverTypedCall
-import de.honoka.sdk.util.android.server.HttpServerVariables
+import de.honoka.lavender.api.util.AbstractLavsourceUtils
+import de.honoka.sdk.util.android.basic.global
+import de.honoka.sdk.util.android.basic.typedCall
+import de.honoka.sdk.util.android.server.HttpServer
 import java.lang.reflect.ParameterizedType
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import kotlin.reflect.KFunction
 import kotlin.reflect.jvm.javaMethod
 
-object LavsourceUtilsAbstractPartImpl : LavsourceUtils.AbstractPart {
+object LavsourceUtils : AbstractLavsourceUtils {
 
     override fun getProxiedImageUrl(url: String): String = run {
         val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.name())
-        HttpServerVariables.getUrlByPath("/image/proxy?url=$encodedUrl")
+        HttpServer.Variables.getUrlByPath("/image/proxy?url=$encodedUrl")
     }
 
     override fun getProxiedMediaStreamUrl(url: String): String = run {
         val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.name())
-        HttpServerVariables.getUrlByPath("/video/stream?url=$encodedUrl")
+        HttpServer.Variables.getUrlByPath("/video/stream?url=$encodedUrl")
     }
 }
 
-inline fun <reified T> callLavsourceProvider(
-    packageName: String, businessMethod: KFunction<*>, args: Iterable<Any?>? = null
+inline fun <reified T : Any> callLavsourceProvider(
+    packageName: String, businessFunction: KFunction<*>, args: Iterable<Any?>? = null
 ): T {
-    val businessJavaMethod = businessMethod.javaMethod!!
+    val businessJavaMethod = businessFunction.javaMethod!!
     val request = LavsourceProviderRequest().apply {
         className = businessJavaMethod.declaringClass.simpleName
-        method = businessMethod.name
+        function = businessFunction.name
         args?.let { this.args = JSONArray(args, false) }
     }
     /*
@@ -45,9 +46,13 @@ inline fun <reified T> callLavsourceProvider(
      * 方法在调用其他应用后，得到的JSON数据中的field1字段的类型有关，只可能是基本数据类型、JSONObject或
      * JSONArray。
      */
-    val result = contentResolverTypedCall<T>("${packageName}.provider.LavsourceProvider", args = request)
+    val result = global.contentResolver.typedCall<T>(
+        "${packageName}.provider.LavsourceProvider", args = request
+    )
     val methodReturnType = businessJavaMethod.genericReturnType
-    if(result !is MutableCollection<*> || methodReturnType !is ParameterizedType) return result
+    if(result !is MutableCollection<*> || methodReturnType !is ParameterizedType) {
+        return result
+    }
     @Suppress("UNCHECKED_CAST")
     result as MutableCollection<Any?>
     val itemClass = methodReturnType.actualTypeArguments[0] as Class<*>
@@ -58,14 +63,19 @@ inline fun <reified T> callLavsourceProvider(
     }
     //不可直接将转换为实体类对象后的item添加到hutool的JSONArray中，否则会被转回JSONObject
     if(result !is JSONArray) {
-        return result.apply {
+        result.run {
             clear()
             addAll(typedItems)
         }
+        return result
     }
     (methodReturnType.rawType as Class<*>).let {
-        if(List::class.java.isAssignableFrom(it)) return typedItems as T
-        if(Set::class.java.isAssignableFrom(it)) return HashSet(typedItems) as T
+        if(List::class.java.isAssignableFrom(it)) {
+            return typedItems as T
+        }
+        if(Set::class.java.isAssignableFrom(it)) {
+            return HashSet(typedItems) as T
+        }
     }
-    throw Exception("Unknown method return type: $methodReturnType")
+    error("Unknown method return type: $methodReturnType")
 }

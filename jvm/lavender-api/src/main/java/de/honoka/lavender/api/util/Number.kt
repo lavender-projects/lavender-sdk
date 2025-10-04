@@ -1,3 +1,5 @@
+@file:Suppress("DefaultLocale")
+
 package de.honoka.lavender.api.util
 
 import java.text.SimpleDateFormat
@@ -16,8 +18,9 @@ fun Int.toDurationString(): String {
     return String.format("%02d:%02d:%02d", this / 3600, this % 3600 / 60, this % 3600 % 60)
 }
 
-fun Long.toDateOrTimeDistanceString(): String {
-    return when(val distance = (System.currentTimeMillis() / 1000 - this)) {
+@Suppress("SimpleDateFormat")
+fun Long.toDateOrTimeDistanceString(): String = run {
+    when(val distance = (System.currentTimeMillis() / 1000 - this)) {
         in 0 until 60 -> "刚刚"
         in 60 until 3600 -> "${distance / 60}分钟前"
         in 3600 until 24 * 60 * 60 -> "${distance / 3600}小时前"

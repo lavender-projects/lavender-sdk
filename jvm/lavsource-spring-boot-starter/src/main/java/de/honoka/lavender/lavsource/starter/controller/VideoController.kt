@@ -2,12 +2,11 @@ package de.honoka.lavender.lavsource.starter.controller
 
 import de.honoka.lavender.api.business.VideoBusiness
 import de.honoka.lavender.api.data.*
-import de.honoka.lavender.api.util.MpdFileData
 import de.honoka.lavender.lavsource.starter.util.VideoUtils
-import de.honoka.sdk.util.framework.web.ApiResponse
+import de.honoka.sdk.util.web.ApiResponse
+import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.HttpHeaders
 import org.springframework.web.bind.annotation.*
-import javax.servlet.http.HttpServletResponse
 
 @RequestMapping("/video")
 @RestController

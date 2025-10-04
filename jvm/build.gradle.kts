@@ -1,43 +1,58 @@
-import de.honoka.gradle.buildsrc.kotlin
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.nio.charset.StandardCharsets
 
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     java
-    alias(libs.plugins.jvm.kotlin) apply false
+    `java-library`
+    `maven-publish`
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.honoka.basic)
 }
 
 subprojects {
     apply(plugin = "java")
+    apply(plugin = "java-library")
+    apply(plugin = "maven-publish")
     apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "org.jetbrains.kotlin.kapt")
+    apply(plugin = "de.honoka.gradle.plugin.basic")
 
     java {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = sourceCompatibility
+        toolchain.languageVersion = JavaLanguageVersion.of(17)
         withSourcesJar()
     }
 
-    //noinspection UseTomlInstead
+    honoka.basic.dependencies {
+        kotlin()
+    }
+
     dependencies {
-        kotlin(rootProject)
-        implementation("cn.hutool:hutool-all:5.8.18")
-        //Test
         testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
         testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
     }
 
     tasks {
-        compileJava {
-            options.encoding = StandardCharsets.UTF_8.name()
+        withType<JavaCompile> {
+            options.run {
+                encoding = StandardCharsets.UTF_8.name()
+                val compilerArgs = compilerArgs as MutableCollection<String>
+                compilerArgs += listOf("-parameters")
+            }
         }
-
+        
         withType<KotlinCompile> {
-            kotlinOptions.jvmTarget = java.sourceCompatibility.toString()
+            compilerOptions {
+                freeCompilerArgs.addAll("-Xjsr305=strict", "-Xjvm-default=all")
+            }
         }
 
-        test {
+        withType<Test> {
             useJUnitPlatform()
         }
+    }
+    
+    kapt {
+        keepJavacAnnotationProcessors = true
     }
 }

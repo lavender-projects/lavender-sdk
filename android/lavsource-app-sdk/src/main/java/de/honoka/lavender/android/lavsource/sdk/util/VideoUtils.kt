@@ -8,9 +8,9 @@ import io.ktor.server.response.*
 
 object VideoUtils {
 
-    suspend fun forwardVideoStream(originalResponse: HttpResponse, ktorCall: ApplicationCall, range: String?) {
+    suspend fun forwardVideoStream(originalResponse: HttpResponse, call: ApplicationCall, range: String?) {
         val videoStream = originalResponse.bodyStream().buffered()
-        ktorCall.response.run {
+        call.response.run {
             val status = if(range == null) {
                 header(HttpHeaders.AcceptRanges, "bytes")
                 HttpStatusCode.OK
@@ -20,10 +20,10 @@ object VideoUtils {
             val contentType = originalResponse.header(HttpHeaders.ContentType)
             header(HttpHeaders.ContentLength, originalResponse.header(HttpHeaders.ContentLength))
             header(HttpHeaders.ContentRange, originalResponse.header(HttpHeaders.ContentRange))
-            ktorCall.respondOutputStream(ContentType.parse(contentType), status) {
-                try {
+            call.respondOutputStream(ContentType.parse(contentType), status) {
+                runCatching {
                     IoUtil.copy(videoStream, this)
-                } catch(t: Throwable) {
+                }.getOrElse {
                     runCatching {
                         originalResponse.close()
                         flush()
