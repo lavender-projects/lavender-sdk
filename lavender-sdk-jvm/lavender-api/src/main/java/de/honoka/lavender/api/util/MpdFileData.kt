@@ -92,7 +92,7 @@ class MpdFileData {
                            mimeType="${audio.mimeType}" 
                            segmentAlignment="true" 
                            startWithSAP="${audio.startWithSap}">
-                <AudioChannelConfiguration schemeIdUri="urn:mpeg:dash:23003:3:audio_channel_configuration:2011" 
+                <AudioChannelConfiguration schemeIdUri="${Constants.AUDIO_SCHEME_ID_URI}" 
                                            value="2" />
                 <Representation id="2" bandwidth="${audio.bandwidth}">
                     <BaseURL>${audio.streamUrl}</BaseURL>
@@ -111,4 +111,9 @@ class MpdFileData {
             add(audio())
         }
     }.document.asXML()
+}
+
+private object Constants {
+
+    const val AUDIO_SCHEME_ID_URI = "urn:mpeg:dash:23003:3:audio_channel_configuration:2011"
 }

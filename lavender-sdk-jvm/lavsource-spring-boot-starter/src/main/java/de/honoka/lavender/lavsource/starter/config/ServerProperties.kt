@@ -1,10 +1,10 @@
-package de.honoka.lavender.lavsource.starter.common
+package de.honoka.lavender.lavsource.starter.config
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
 @Component
-class PropertiesHolder(private val mainProperties: MainProperties) {
+class ServerProperties(private val mainProperties: MainProperties) {
 
     @Value($$"${server.port:8080}")
     var serverPort: Int? = null

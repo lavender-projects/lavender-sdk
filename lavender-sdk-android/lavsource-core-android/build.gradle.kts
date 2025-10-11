@@ -58,6 +58,6 @@ dependencies {
 
 honoka.basic {
     publishing {
-        defaultAar()
+        defaultAar(true)
     }
 }

@@ -8,8 +8,8 @@ import java.util.*
 fun Int.toStringWithUnit(): String {
     if(this < 10000) return this.toString()
     val numStr = String.format("%.1f", this / 10000.0)
-    return numStr.split(".").let {
-        if(it[1] == "0") "${it[0]}万" else "${numStr}万"
+    numStr.split(".").let {
+        return if(it[1] == "0") "${it[0]}万" else "${numStr}万"
     }
 }
 

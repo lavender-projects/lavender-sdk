@@ -1,4 +1,4 @@
-package de.honoka.lavender.lavsource.starter.common
+package de.honoka.lavender.lavsource.starter.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.EnableConfigurationProperties
