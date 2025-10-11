@@ -1,0 +1,18 @@
+[versions]
+# gradle plugins version
+gp-android-library = "8.11.1"
+gp-honoka-android = "1.0.1-dev"
+
+# android related version
+a-compile-sdk = "33"
+a-min-sdk = "26"
+
+# dependencies version
+d-honoka-android-utils = "1.1.2-dev"
+
+[plugins]
+android-library = { id = "com.android.library", version.ref = "gp-android-library" }
+honoka-android = { id = "de.honoka.gradle.plugin.android", version.ref = "gp-honoka-android" }
+
+[libraries]
+honoka-android-utils = { module = "de.honoka.sdk:honoka-android-utils", version.ref = "d-honoka-android-utils" }
