@@ -1,4 +1,4 @@
-package de.honoka.lavender.lavsource.starter.common
+package de.honoka.lavender.lavsource.starter.component
 
 import de.honoka.lavender.lavsource.starter.config.MainConfig
 import org.apache.catalina.connector.ClientAbortException

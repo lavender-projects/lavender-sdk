@@ -1,9 +1,9 @@
-package de.honoka.lavender.android.lavsource.sdk.business
+package de.honoka.lavender.lavsource.core.android.business
 
 import cn.hutool.http.HttpResponse
-import de.honoka.lavender.android.lavsource.sdk.provider.callLavsourceProvider
 import de.honoka.lavender.api.business.VideoBusiness
 import de.honoka.lavender.api.data.*
+import de.honoka.lavender.lavsource.core.android.provider.callLavsourceProvider
 
 class VideoBusinessStub(private val packageName: String) : VideoBusiness {
 

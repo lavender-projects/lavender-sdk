@@ -1,14 +1,17 @@
 package de.honoka.lavender.lavsource.starter.util
 
-import de.honoka.lavender.api.util.AbstractLavsourceUtils
+import de.honoka.lavender.api.util.LavsourceUtils
 import de.honoka.lavender.lavsource.starter.config.ServerProperties
-import de.honoka.sdk.spring.starter.core.context.springBean
+import org.springframework.stereotype.Component
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
-object LavsourceUtils : AbstractLavsourceUtils {
+@Component
+class LavsourceUtilsImpl(private val serverProperties: ServerProperties) : LavsourceUtils.AbstractPart {
 
-    private val serverProperties by lazy { ServerProperties::class.springBean }
+    init {
+        LavsourceUtils.initAbstractPart(this)
+    }
 
     override fun getProxiedImageUrl(url: String): String {
         val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.name())

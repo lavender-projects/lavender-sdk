@@ -1,9 +1,13 @@
-package de.honoka.lavender.android.lavsource.sdk.provider
+package de.honoka.lavender.lavsource.core.android.provider
 
 import cn.hutool.json.JSON
 import cn.hutool.json.JSONArray
 import cn.hutool.json.JSONObject
-import de.honoka.sdk.util.android.basic.*
+import de.honoka.lavender.lavsource.core.android.util.LavsourceApplicationUtils
+import de.honoka.sdk.util.android.basic.BaseContentProvider
+import de.honoka.sdk.util.android.basic.global
+import de.honoka.sdk.util.android.basic.toFunctionArgs
+import de.honoka.sdk.util.android.basic.typedCall
 import java.lang.reflect.ParameterizedType
 import kotlin.reflect.KFunction
 import kotlin.reflect.full.declaredFunctions
@@ -15,23 +19,24 @@ abstract class AbstractLavsourceProvider : BaseContentProvider() {
 
         private var businessList: List<Any>? = null
 
-        private lateinit var businessMap: MutableMap<String, Any>
+        private lateinit var businessMap: Map<String, Any>
 
         private fun initBusinessMap() {
-            businessMap = HashMap()
+            val map = HashMap<String, Any>()
             businessList!!.forEach {
                 val classes = ArrayList<Class<*>>()
                 classes.addAll(it.javaClass.interfaces)
                 val superClass = it.javaClass.superclass
                 classes.add(if(superClass == Any::class.java) it.javaClass else superClass)
                 classes.forEach { clazz ->
-                    businessMap[clazz.simpleName] = it
+                    map[clazz.simpleName] = it
                 }
             }
+            businessMap = map
         }
     }
 
-    protected abstract val applicationUtils: AbstractApplicationUtils
+    protected abstract val applicationUtils: LavsourceApplicationUtils
 
     override fun onCreate(): Boolean {
         applicationUtils.initApplication(context!!)

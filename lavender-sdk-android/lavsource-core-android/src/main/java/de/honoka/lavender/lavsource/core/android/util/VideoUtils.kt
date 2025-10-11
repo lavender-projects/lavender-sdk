@@ -1,4 +1,4 @@
-package de.honoka.lavender.android.lavsource.sdk.util
+package de.honoka.lavender.lavsource.core.android.util
 
 import cn.hutool.core.io.IoUtil
 import cn.hutool.http.HttpResponse

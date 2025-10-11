@@ -1,7 +1,7 @@
-package de.honoka.lavender.android.lavsource.sdk.controller
+package de.honoka.lavender.lavsource.core.android.controller
 
 import cn.hutool.http.HttpResponse
-import de.honoka.lavender.android.lavsource.sdk.util.VideoUtils
+import de.honoka.lavender.lavsource.core.android.util.VideoUtils
 import de.honoka.sdk.util.android.server.RoutingDefinition
 import io.ktor.http.*
 import io.ktor.server.application.*
