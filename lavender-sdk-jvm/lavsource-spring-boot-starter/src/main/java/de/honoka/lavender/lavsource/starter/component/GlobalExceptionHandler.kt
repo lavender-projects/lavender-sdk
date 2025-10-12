@@ -1,11 +1,10 @@
 package de.honoka.lavender.lavsource.starter.component
 
-import de.honoka.lavender.lavsource.starter.config.MainConfig
 import org.apache.catalina.connector.ClientAbortException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
-@RestControllerAdvice("${MainConfig.STARTER_BEAN_NAME_PREFIX}GlobalExceptionHandler")
+@RestControllerAdvice
 class GlobalExceptionHandler {
 
     @ExceptionHandler(ClientAbortException::class)

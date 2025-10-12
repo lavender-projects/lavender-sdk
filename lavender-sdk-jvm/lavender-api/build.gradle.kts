@@ -1,7 +1,12 @@
 version = commonLibs.versions.p.lavender.api.get()
 
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(8)
+    withSourcesJar()
+}
+
 dependencies {
-    api(commonLibs.honoka.kotlin.utils)
+    compileOnly(commonLibs.honoka.kotlin.utils)
 }
 
 honoka.basic.publishing {

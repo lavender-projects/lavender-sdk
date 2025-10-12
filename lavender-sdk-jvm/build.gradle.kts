@@ -23,11 +23,6 @@ subprojects {
 
     group = rootProject.group
 
-    java {
-        toolchain.languageVersion = JavaLanguageVersion.of(17)
-        withSourcesJar()
-    }
-
     honoka.basic.dependencies {
         kotlin()
     }

@@ -4,6 +4,10 @@ plugins {
 
 version = commonLibs.versions.p.lavsource.spring.boot.starter.get()
 
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(17)
+}
+
 honoka.basic {
     dependencies {
         springBootBom()
@@ -14,7 +18,7 @@ honoka.basic {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation(libs.honoka.spring.boot.starter)
+    api(libs.honoka.spring.boot.starter)
     api(commonLibs.lavender.api)
     implementation("org.hibernate.validator:hibernate-validator")
 }
