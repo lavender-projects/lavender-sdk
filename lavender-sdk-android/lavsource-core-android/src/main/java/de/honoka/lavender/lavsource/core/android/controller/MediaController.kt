@@ -12,11 +12,9 @@ import io.ktor.server.routing.*
 @Suppress("MemberVisibilityCanBePrivate")
 abstract class AbstractMediaController {
 
-    val routingDefinition: RoutingDefinition by lazy {
-        {
-            get("/image/proxy", imageProxy)
-            get("/video/stream", videoStream)
-        }
+    val routingDefinition: RoutingDefinition = {
+        get("/image/proxy", imageProxy)
+        get("/video/stream", videoStream)
     }
 
     private val imageProxy: RoutingHandler = {
