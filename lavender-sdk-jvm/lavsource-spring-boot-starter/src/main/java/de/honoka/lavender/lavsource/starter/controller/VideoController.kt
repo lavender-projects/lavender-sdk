@@ -1,5 +1,6 @@
 package de.honoka.lavender.lavsource.starter.controller
 
+import de.honoka.lavender.api.business.MediaBusiness
 import de.honoka.lavender.api.business.VideoBusiness
 import de.honoka.lavender.api.data.*
 import de.honoka.lavender.lavsource.starter.util.VideoUtils
@@ -10,7 +11,10 @@ import org.springframework.web.bind.annotation.*
 
 @RequestMapping("/video")
 @RestController
-class VideoController(private val videoBusiness: VideoBusiness) {
+class VideoController(
+    private val videoBusiness: VideoBusiness,
+    private val mediaBusiness: MediaBusiness
+) {
 
     @GetMapping("/recommended")
     fun recommendedVideoList(): ApiResponse<List<RecommendedVideoItem>> = run {
@@ -59,7 +63,7 @@ class VideoController(private val videoBusiness: VideoBusiness) {
         @RequestHeader(HttpHeaders.RANGE, required = false) range: String?,
         response: HttpServletResponse
     ) {
-        videoBusiness.getVideoStreamResponse(url, range).use {
+        mediaBusiness.getVideoResponse(url, range).use {
             VideoUtils.forwardVideoStream(it, response, range)
         }
     }

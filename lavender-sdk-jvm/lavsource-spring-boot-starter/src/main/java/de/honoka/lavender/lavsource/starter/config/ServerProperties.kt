@@ -1,9 +1,9 @@
 package de.honoka.lavender.lavsource.starter.config
 
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.stereotype.Component
+import org.springframework.context.annotation.Configuration
 
-@Component
+@Configuration("${MainConfig.STARTER_BEAN_NAME_PREFIX}ServerProperties")
 class ServerProperties(private val mainProperties: MainProperties) {
 
     @Value($$"${server.port:8080}")

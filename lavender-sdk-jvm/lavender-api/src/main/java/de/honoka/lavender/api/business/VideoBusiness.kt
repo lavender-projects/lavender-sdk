@@ -1,6 +1,5 @@
 package de.honoka.lavender.api.business
 
-import cn.hutool.http.HttpResponse
 import de.honoka.lavender.api.data.*
 
 interface VideoBusiness {
@@ -16,8 +15,6 @@ interface VideoBusiness {
     fun getEpisodeList(videoId: String): List<VideoEpisodeInfo>
 
     fun getStreamUrlList(videoId: String, episodeId: String): List<VideoStreamInfo>
-
-    fun getVideoStreamResponse(url: String, range: String?): HttpResponse
 
     fun getDanmakuList(episodeId: String): List<DanmakuInfo>
 }

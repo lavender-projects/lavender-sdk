@@ -1,16 +1,14 @@
 package de.honoka.lavender.lavsource.core.android.controller
 
-import cn.hutool.http.HttpResponse
+import de.honoka.lavender.api.business.MediaBusiness
 import de.honoka.lavender.lavsource.core.android.util.VideoUtils
 import de.honoka.sdk.util.android.server.RoutingDefinition
 import io.ktor.http.*
-import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
-@Suppress("MemberVisibilityCanBePrivate")
-abstract class AbstractMediaController {
+class MediaController(private val mediaBusiness: MediaBusiness) {
 
     val routingDefinition: RoutingDefinition = {
         get("/image/proxy", imageProxy)
@@ -18,7 +16,8 @@ abstract class AbstractMediaController {
     }
 
     private val imageProxy: RoutingHandler = {
-        getImageResponse(call).use {
+        val url = call.parameters["url"]!!
+        mediaBusiness.getImageResponse(url).use {
             call.respondBytes(
                 it.bodyBytes(),
                 ContentType.parse(it.header(HttpHeaders.ContentType))
@@ -27,13 +26,11 @@ abstract class AbstractMediaController {
     }
 
     private val videoStream: RoutingHandler = {
-        getVideoResponse(call).use {
+        val url = call.parameters["url"]!!
+        val range = call.request.header(HttpHeaders.Range)
+        mediaBusiness.getVideoResponse(url, range).use {
             val range = call.request.header(HttpHeaders.Range)
             VideoUtils.forwardVideoStream(it, call, range)
         }
     }
-
-    protected abstract fun getImageResponse(call: ApplicationCall): HttpResponse
-
-    protected abstract fun getVideoResponse(call: ApplicationCall): HttpResponse
 }

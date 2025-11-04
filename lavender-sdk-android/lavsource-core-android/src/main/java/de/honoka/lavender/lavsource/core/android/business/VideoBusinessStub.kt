@@ -1,6 +1,5 @@
 package de.honoka.lavender.lavsource.core.android.business
 
-import cn.hutool.http.HttpResponse
 import de.honoka.lavender.api.business.VideoBusiness
 import de.honoka.lavender.api.data.*
 import de.honoka.lavender.lavsource.core.android.provider.callLavsourceProvider
@@ -45,10 +44,6 @@ class VideoBusinessStub(private val packageName: String) : VideoBusiness {
             VideoBusiness::getStreamUrlList,
             listOf(videoId, episodeId)
         )
-    }
-
-    override fun getVideoStreamResponse(url: String, range: String?): HttpResponse {
-        throw UnsupportedOperationException()
     }
 
     override fun getDanmakuList(episodeId: String): List<DanmakuInfo> = run {
