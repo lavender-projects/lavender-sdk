@@ -28,12 +28,8 @@ object VideoUtils {
             )
             runCatching {
                 IoUtil.copy(videoStream, outputStream)
-            }.getOrElse {
-                runCatching {
-                    originalResponse.close()
-                    outputStream.flush()
-                }
             }
+            outputStream.flush()
         }
     }
 }

@@ -18,16 +18,19 @@ abstract class AbstractMediaController {
     }
 
     private val imageProxy: RoutingHandler = {
-        val originalRes = getImageResponse(call)
-        call.respondBytes(
-            originalRes.bodyBytes(),
-            ContentType.parse(originalRes.header(HttpHeaders.ContentType))
-        )
+        getImageResponse(call).use {
+            call.respondBytes(
+                it.bodyBytes(),
+                ContentType.parse(it.header(HttpHeaders.ContentType))
+            )
+        }
     }
 
     private val videoStream: RoutingHandler = {
-        val range = call.request.header(HttpHeaders.Range)
-        VideoUtils.forwardVideoStream(getVideoResponse(call), call, range)
+        getVideoResponse(call).use {
+            val range = call.request.header(HttpHeaders.Range)
+            VideoUtils.forwardVideoStream(it, call, range)
+        }
     }
 
     protected abstract fun getImageResponse(call: ApplicationCall): HttpResponse

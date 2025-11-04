@@ -59,9 +59,9 @@ class VideoController(private val videoBusiness: VideoBusiness) {
         @RequestHeader(HttpHeaders.RANGE, required = false) range: String?,
         response: HttpServletResponse
     ) {
-        VideoUtils.forwardVideoStream(
-            videoBusiness.getVideoStreamResponse(url, range), response, range
-        )
+        videoBusiness.getVideoStreamResponse(url, range).use {
+            VideoUtils.forwardVideoStream(it, response, range)
+        }
     }
 
     @GetMapping("/danmaku/list")
