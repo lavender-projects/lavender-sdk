@@ -15,7 +15,7 @@ class LavsourceUtilsImpl(private val serverProperties: ServerProperties) : Lavso
 
     override fun getProxiedImageUrl(url: String): String {
         val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.name())
-        return "${serverProperties.serverAccessUrlPrefix}/platform/test/image/proxy?url=$encodedUrl"
+        return "${serverProperties.serverAccessUrlPrefix}/image/proxy?url=$encodedUrl"
     }
 
     override fun getProxiedMediaStreamUrl(url: String): String {

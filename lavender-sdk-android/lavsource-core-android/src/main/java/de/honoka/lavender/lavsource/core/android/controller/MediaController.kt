@@ -29,7 +29,6 @@ class MediaController(private val mediaBusiness: MediaBusiness) {
         val url = call.parameters["url"]!!
         val range = call.request.header(HttpHeaders.Range)
         mediaBusiness.getVideoResponse(url, range).use {
-            val range = call.request.header(HttpHeaders.Range)
             VideoUtils.forwardVideoStream(it, call, range)
         }
     }

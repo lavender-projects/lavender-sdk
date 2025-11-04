@@ -1,20 +1,16 @@
 package de.honoka.lavender.lavsource.starter.controller
 
-import de.honoka.lavender.api.business.MediaBusiness
 import de.honoka.lavender.api.business.VideoBusiness
 import de.honoka.lavender.api.data.*
-import de.honoka.lavender.lavsource.starter.util.VideoUtils
 import de.honoka.sdk.util.web.ApiResponse
-import jakarta.servlet.http.HttpServletResponse
-import org.springframework.http.HttpHeaders
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RestController
 
 @RequestMapping("/video")
 @RestController
-class VideoController(
-    private val videoBusiness: VideoBusiness,
-    private val mediaBusiness: MediaBusiness
-) {
+class VideoController(private val videoBusiness: VideoBusiness) {
 
     @GetMapping("/recommended")
     fun recommendedVideoList(): ApiResponse<List<RecommendedVideoItem>> = run {
@@ -55,17 +51,6 @@ class VideoController(
         @RequestParam episodeId: String
     ): ApiResponse<List<VideoStreamInfo>> = run {
         ApiResponse.success(videoBusiness.getStreamUrlList(videoId, episodeId))
-    }
-
-    @GetMapping("/stream")
-    fun stream(
-        @RequestParam url: String,
-        @RequestHeader(HttpHeaders.RANGE, required = false) range: String?,
-        response: HttpServletResponse
-    ) {
-        mediaBusiness.getVideoResponse(url, range).use {
-            VideoUtils.forwardVideoStream(it, response, range)
-        }
     }
 
     @GetMapping("/danmaku/list")
