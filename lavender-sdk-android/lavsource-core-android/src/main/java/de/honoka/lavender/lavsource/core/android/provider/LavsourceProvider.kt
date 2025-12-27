@@ -4,10 +4,7 @@ import cn.hutool.json.JSON
 import cn.hutool.json.JSONArray
 import cn.hutool.json.JSONObject
 import de.honoka.lavender.lavsource.core.android.util.LavenderApplicationUtils
-import de.honoka.sdk.util.android.basic.BaseContentProvider
-import de.honoka.sdk.util.android.basic.global
-import de.honoka.sdk.util.android.basic.toFunctionArgs
-import de.honoka.sdk.util.android.basic.typedCall
+import de.honoka.sdk.util.android.basic.*
 import kotlin.reflect.KFunction
 import kotlin.reflect.full.declaredFunctions
 import kotlin.reflect.jvm.javaMethod
@@ -38,7 +35,7 @@ abstract class AbstractLavsourceProvider : BaseContentProvider() {
     protected abstract val applicationUtils: LavenderApplicationUtils
 
     override fun onCreate(): Boolean {
-        applicationUtils.initApplication(context!!)
+        context!!.initGlobalComponents()
         checkOrInitBusinessMap()
         return super.onCreate()
     }
@@ -55,6 +52,7 @@ abstract class AbstractLavsourceProvider : BaseContentProvider() {
     }
 
     override fun call(method: String?, args: JSON?): Any? {
+        applicationUtils.initApplication(context!!)
         args as JSONObject
         val request = args.toBean(LavsourceProviderRequest::class.java)
         val business = businessMap[request.className].also {

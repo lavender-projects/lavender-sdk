@@ -2,20 +2,17 @@ package de.honoka.lavender.lavsource.core.android.controller
 
 import de.honoka.lavender.api.business.MediaBusiness
 import de.honoka.lavender.lavsource.core.android.util.VideoUtils
-import de.honoka.sdk.util.android.server.RoutingDefinition
+import de.honoka.sdk.util.android.server.ktor.GetMapping
+import de.honoka.sdk.util.android.server.ktor.KtorController
 import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
-class MediaController(private val mediaBusiness: MediaBusiness) {
+class MediaController(private val mediaBusiness: MediaBusiness) : KtorController() {
 
-    val routingDefinition: RoutingDefinition = {
-        get("/image/proxy", imageProxy)
-        get("/video/stream", videoStream)
-    }
-
-    private val imageProxy: RoutingHandler = {
+    @GetMapping("/image/proxy")
+    suspend fun imageProxy(call: RoutingCall) {
         val url = call.parameters["url"]!!
         mediaBusiness.getImageResponse(url).use {
             call.respondBytes(
@@ -25,7 +22,8 @@ class MediaController(private val mediaBusiness: MediaBusiness) {
         }
     }
 
-    private val videoStream: RoutingHandler = {
+    @GetMapping("/video/stream")
+    suspend fun videoStream(call: RoutingCall) {
         val url = call.parameters["url"]!!
         val range = call.request.header(HttpHeaders.Range)
         mediaBusiness.getVideoResponse(url, range).use {

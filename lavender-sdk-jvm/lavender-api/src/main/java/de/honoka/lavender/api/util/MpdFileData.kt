@@ -7,6 +7,11 @@ import org.dom4j.Element
 @Suppress("MemberVisibilityCanBePrivate")
 class MpdFileData {
 
+    private object Constants {
+
+        const val AUDIO_SCHEME_ID_URI = "urn:mpeg:dash:23003:3:audio_channel_configuration:2011"
+    }
+
     data class Basic(
 
         var duration: Double? = null,
@@ -105,15 +110,11 @@ class MpdFileData {
         return XmlUtils.parseElement(xmlStr)
     }
 
-    override fun toString(): String = root().apply {
+    override fun toString(): String = root().run {
         addElementByStr("<Period />").run {
             add(video())
             add(audio())
         }
-    }.document.asXML()
-}
-
-private object Constants {
-
-    const val AUDIO_SCHEME_ID_URI = "urn:mpeg:dash:23003:3:audio_channel_configuration:2011"
+        document.asXML()
+    }
 }
