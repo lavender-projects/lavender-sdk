@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 class VideoController(private val videoBusiness: VideoBusiness) {
 
     @GetMapping("/recommended")
-    fun recommendedVideoList(): ApiResponse<List<RecommendedVideoItem>> = run {
+    fun recommendedVideoList(): ApiResponse<List<VideoItem>> = run {
         ApiResponse.success(videoBusiness.getRecommendedVideoList())
     }
 

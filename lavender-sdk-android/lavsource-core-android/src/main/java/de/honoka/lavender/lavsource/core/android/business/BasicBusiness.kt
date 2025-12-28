@@ -1,16 +1,17 @@
 package de.honoka.lavender.lavsource.core.android.business
 
-import cn.hutool.json.JSONObject
-import de.honoka.lavender.lavsource.core.android.provider.callLavsourceProvider
+import de.honoka.lavender.api.data.LavsourceStatus
+import de.honoka.lavender.api.util.BusinessStubCompanion
+import de.honoka.lavender.lavsource.core.android.util.BusinessAndroidStub
 
 interface BasicBusiness {
 
-    fun statusCheck(): JSONObject
+    fun getStatus(): LavsourceStatus
 }
 
-class BasicBusinessStub(private val packageName: String) : BasicBusiness {
+class BasicBusinessStub : BusinessAndroidStub(), BasicBusiness {
 
-    override fun statusCheck(): JSONObject = run {
-        callLavsourceProvider(packageName, BasicBusiness::statusCheck)
-    }
+    companion object : BusinessStubCompanion<BasicBusinessStub>(BasicBusinessStub::class)
+
+    override fun getStatus(): LavsourceStatus = callProvider(::getStatus)
 }

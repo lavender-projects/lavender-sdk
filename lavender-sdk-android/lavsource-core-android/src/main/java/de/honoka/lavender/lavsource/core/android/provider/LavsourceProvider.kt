@@ -20,12 +20,12 @@ abstract class AbstractLavsourceProvider : BaseContentProvider() {
         private fun initBusinessMap() {
             val map = HashMap<String, Any>()
             businessList!!.forEach {
-                val classes = ArrayList<Class<*>>()
+                val classes = HashSet<Class<*>>()
                 classes.addAll(it.javaClass.interfaces)
                 val superClass = it.javaClass.superclass
                 classes.add(if(superClass == Any::class.java) it.javaClass else superClass)
-                classes.forEach { clazz ->
-                    map[clazz.simpleName] = it
+                classes.forEach { c ->
+                    map[c.name] = it
                 }
             }
             businessMap = map
@@ -77,7 +77,9 @@ fun <T : Any> callLavsourceProvider(
     packageName: String, businessFunction: KFunction<*>, args: Iterable<Any?>? = null
 ): T {
     val request = LavsourceProviderRequest().apply {
-        className = businessFunction.javaMethod!!.declaringClass.simpleName
+        className = businessFunction.javaMethod!!.declaringClass.run {
+            if(interfaces.isEmpty()) name else interfaces[0].name
+        }
         function = businessFunction.name
         args?.let {
             this.args = JSONArray(args, false)

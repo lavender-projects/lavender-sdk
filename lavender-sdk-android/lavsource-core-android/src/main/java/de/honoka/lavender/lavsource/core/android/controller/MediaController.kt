@@ -3,13 +3,14 @@ package de.honoka.lavender.lavsource.core.android.controller
 import de.honoka.lavender.api.business.MediaBusiness
 import de.honoka.lavender.lavsource.core.android.util.VideoUtils
 import de.honoka.sdk.util.android.server.ktor.GetMapping
-import de.honoka.sdk.util.android.server.ktor.KtorController
+import de.honoka.sdk.util.android.server.ktor.RestController
 import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
-class MediaController(private val mediaBusiness: MediaBusiness) : KtorController() {
+@RestController
+class MediaController(private val mediaBusiness: MediaBusiness) {
 
     @GetMapping("/image/proxy")
     suspend fun imageProxy(call: RoutingCall) {

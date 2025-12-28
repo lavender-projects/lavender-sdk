@@ -3,16 +3,17 @@ package de.honoka.lavender.lavsource.core.android.controller
 import de.honoka.lavender.api.business.VideoBusiness
 import de.honoka.lavender.api.data.*
 import de.honoka.sdk.util.android.server.ktor.GetMapping
-import de.honoka.sdk.util.android.server.ktor.KtorController
 import de.honoka.sdk.util.android.server.ktor.RequestMapping
+import de.honoka.sdk.util.android.server.ktor.RestController
 import de.honoka.sdk.util.web.ApiResponse
 import io.ktor.server.routing.*
 
 @RequestMapping("/video")
-class VideoController(private val videoBusiness: VideoBusiness) : KtorController() {
+@RestController
+class VideoController(private val videoBusiness: VideoBusiness) {
 
     @GetMapping("/recommended")
-    fun recommendedVideoList(): ApiResponse<List<RecommendedVideoItem>> = run {
+    fun recommendedVideoList(): ApiResponse<List<VideoItem>> = run {
         ApiResponse.success(videoBusiness.getRecommendedVideoList())
     }
 

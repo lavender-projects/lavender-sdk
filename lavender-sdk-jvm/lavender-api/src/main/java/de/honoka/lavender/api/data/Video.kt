@@ -2,9 +2,9 @@ package de.honoka.lavender.api.data
 
 import de.honoka.lavender.api.util.MultipleLavsourceIdContainer
 
-data class RecommendedVideoItem(
+data class VideoItem(
 
-    var videoId: String? = null,
+    var id: String? = null,
 
     var lavsourceId: String? = null,
 
@@ -67,7 +67,7 @@ data class VideoDetails(
 
     var shareCount: String? = null,
 
-    var relatedVideoList: List<RecommendedVideoItem> = listOf()
+    var relatedVideoList: List<VideoItem> = listOf()
 ) : MultipleLavsourceIdContainer {
 
     override fun setMultipleLavsourceId(lavsourceId: String) {
