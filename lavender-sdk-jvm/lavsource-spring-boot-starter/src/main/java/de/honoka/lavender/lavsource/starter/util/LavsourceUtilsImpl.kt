@@ -2,8 +2,6 @@ package de.honoka.lavender.lavsource.starter.util
 
 import de.honoka.lavender.api.util.LavsourceUtils
 import de.honoka.lavender.lavsource.starter.config.ServerProperties
-import de.honoka.sdk.util.kotlin.basic.RemoteInvokeException
-import de.honoka.sdk.util.kotlin.basic.log
 import org.springframework.stereotype.Component
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
@@ -23,9 +21,5 @@ class LavsourceUtilsImpl(private val serverProperties: ServerProperties) : Lavso
     override fun getProxiedMediaStreamUrl(url: String): String {
         val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.name())
         return "${serverProperties.serverAccessUrlPrefix}/video/stream?url=$encodedUrl"
-    }
-
-    override fun logRemoteInvokeException(e: RemoteInvokeException) {
-        log.error("\nRemote invoke error:\n\n${e.stackTraceText}")
     }
 }

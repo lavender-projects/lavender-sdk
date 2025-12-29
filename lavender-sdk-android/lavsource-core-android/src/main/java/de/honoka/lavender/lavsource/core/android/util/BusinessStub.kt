@@ -1,28 +1,47 @@
-package de.honoka.lavender.api.util
+package de.honoka.lavender.lavsource.core.android.util
 
+import android.util.Log
 import cn.hutool.http.HttpRequest
 import cn.hutool.http.HttpUtil
 import cn.hutool.json.JSONObject
+import de.honoka.lavender.lavsource.core.android.business.BasicBusinessStub
+import de.honoka.lavender.lavsource.core.android.provider.callLavsourceProvider
 import de.honoka.sdk.util.kotlin.basic.RemoteInvokeException
+import de.honoka.sdk.util.kotlin.basic.tryBlock
 import de.honoka.sdk.util.kotlin.basic.tryCastOrNull
 import de.honoka.sdk.util.kotlin.reflect.setInstanceProp
 import de.honoka.sdk.util.kotlin.text.toJsonObject
 import de.honoka.sdk.util.web.ApiResponse
+import java.net.ConnectException
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.reflect.KClass
+import kotlin.reflect.KFunction
 import kotlin.reflect.full.primaryConstructor
 import kotlin.reflect.typeOf
 
 abstract class BusinessStub {
 
     protected lateinit var stubId: String
+}
+
+abstract class WebBusinessStub : BusinessStub() {
 
     open val pathPrefix = ""
+
+    var androidPackageName: String? = null
 
     protected fun url(path: String): String = "$stubId$pathPrefix$path"
 
     protected inline fun <reified T> request(request: HttpRequest): T? {
-        val response = request.execute().body()
+        val response = tryBlock(3) {
+            try {
+                request.execute().body()
+            } catch(ce: ConnectException) {
+                androidPackageName ?: throw ce
+                BasicBusinessStub[androidPackageName!!].restartHttpServerIfStopped()
+                throw ce
+            }
+        }
         if(response.isBlank()) return null
         val resObj = response.toJsonObject().toBean<ApiResponse<Any?>>(ApiResponse::class.java)
         if(!resObj.status) {
@@ -30,7 +49,7 @@ abstract class BusinessStub {
                 resObj.msg,
                 (resObj.data as JSONObject).getStr("stackTrace")
             )
-            LavsourceUtils.logRemoteInvokeException(e)
+            Log.e(javaClass.simpleName, e.stackTraceText)
             throw e
         }
         return resObj.data?.tryCastOrNull(typeOf<T>())
@@ -50,6 +69,17 @@ abstract class BusinessStub {
 
     protected inline fun <reified T> post(path: String, block: HttpRequest.() -> Unit = {}): T = run {
         postOrNull(path, block)!!
+    }
+}
+
+abstract class AndroidBusinessStub : BusinessStub() {
+
+    protected fun callProvider(businessFunction: KFunction<*>, args: Iterable<Any?>? = null): Any? = run {
+        typedCallProvider(businessFunction, args)
+    }
+
+    protected fun <T> typedCallProvider(businessFunction: KFunction<*>, args: Iterable<Any?>? = null): T = run {
+        callLavsourceProvider(stubId, businessFunction, args)
     }
 }
 

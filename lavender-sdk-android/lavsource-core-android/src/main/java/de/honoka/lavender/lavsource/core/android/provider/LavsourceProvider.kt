@@ -4,10 +4,16 @@ import cn.hutool.json.JSON
 import cn.hutool.json.JSONArray
 import cn.hutool.json.JSONObject
 import de.honoka.lavender.lavsource.core.android.util.LavenderApplicationUtils
-import de.honoka.sdk.util.android.basic.*
+import de.honoka.sdk.util.android.basic.call
+import de.honoka.sdk.util.android.basic.global
+import de.honoka.sdk.util.android.basic.toFunctionArgs
+import de.honoka.sdk.util.android.provider.BaseContentProvider
+import de.honoka.sdk.util.kotlin.basic.tryCastOrNull
 import kotlin.reflect.KFunction
 import kotlin.reflect.full.declaredFunctions
+import kotlin.reflect.full.isSubtypeOf
 import kotlin.reflect.jvm.javaMethod
+import kotlin.reflect.typeOf
 
 abstract class AbstractLavsourceProvider : BaseContentProvider() {
 
@@ -35,7 +41,7 @@ abstract class AbstractLavsourceProvider : BaseContentProvider() {
     protected abstract val applicationUtils: LavenderApplicationUtils
 
     override fun onCreate(): Boolean {
-        context!!.initGlobalComponents()
+        applicationUtils.initApplication(context!!, false)
         checkOrInitBusinessMap()
         return super.onCreate()
     }
@@ -52,7 +58,6 @@ abstract class AbstractLavsourceProvider : BaseContentProvider() {
     }
 
     override fun call(method: String?, args: JSON?): Any? {
-        applicationUtils.initApplication(context!!)
         args as JSONObject
         val request = args.toBean(LavsourceProviderRequest::class.java)
         val business = businessMap[request.className].also {
@@ -72,8 +77,8 @@ data class LavsourceProviderRequest(
     var args: JSONArray = JSONArray()
 )
 
-@Suppress("UNCHECKED_CAST")
-fun <T : Any> callLavsourceProvider(
+@Suppress("UNCHECKED_CAST", "RemoveExplicitTypeArguments")
+fun <T> callLavsourceProvider(
     packageName: String, businessFunction: KFunction<*>, args: Iterable<Any?>? = null
 ): T {
     val request = LavsourceProviderRequest().apply {
@@ -85,10 +90,14 @@ fun <T : Any> callLavsourceProvider(
             this.args = JSONArray(args, false)
         }
     }
-    val result = global.contentResolver.typedCall<T>(
+    val result = global.contentResolver.call(
         "${packageName}.provider.LavsourceProvider",
-        args = request,
-        resultType = businessFunction.returnType
+        args = request
     )
-    return result
+    businessFunction.returnType.run {
+        if(isSubtypeOf(typeOf<Unit>())) {
+            return null as T
+        }
+        return result.tryCastOrNull<T>(this) as T
+    }
 }
