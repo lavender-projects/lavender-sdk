@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets
 class LavsourceUtilsImpl(private val serverProperties: ServerProperties) : LavsourceUtils.AbstractPart {
 
     init {
-        LavsourceUtils.initAbstractPart(this)
+        LavsourceUtils.abstractPart = this
     }
 
     override fun getProxiedImageUrl(url: String): String {

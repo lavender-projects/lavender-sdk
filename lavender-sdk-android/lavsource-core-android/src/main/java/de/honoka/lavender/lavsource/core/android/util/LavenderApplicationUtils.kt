@@ -7,7 +7,7 @@ import de.honoka.sdk.util.android.service.HttpServerService
 abstract class LavenderApplicationUtils : AbstractApplicationUtils() {
 
     override fun initApplication() {
-        LavsourceUtils.initAbstractPart(LavsourceUtilsImpl)
+        LavsourceUtils.abstractPart = LavsourceUtilsImpl
         initAbstractParts()
         initHttpServer()
         initOthers()

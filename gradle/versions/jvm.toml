@@ -1,7 +1,7 @@
 [versions]
 # dependencies version
-d-spring-boot = "3.5.4"
-d-honoka-spring-boot-starter = "1.0.5-dev"
+d-spring-boot = "3.5.9"
+d-honoka-spring-boot-starter = "1.1.0-dev"
 
 [libraries]
 honoka-spring-boot-starter = { module = "de.honoka.sdk:honoka-spring-boot-starter", version.ref = "d-honoka-spring-boot-starter" }

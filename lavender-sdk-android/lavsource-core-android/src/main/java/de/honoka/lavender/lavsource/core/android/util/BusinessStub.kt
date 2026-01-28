@@ -6,11 +6,11 @@ import cn.hutool.http.HttpUtil
 import cn.hutool.json.JSONObject
 import de.honoka.lavender.lavsource.core.android.business.BasicBusinessStub
 import de.honoka.lavender.lavsource.core.android.provider.callLavsourceProvider
-import de.honoka.sdk.util.kotlin.basic.RemoteInvokeException
-import de.honoka.sdk.util.kotlin.basic.tryBlock
-import de.honoka.sdk.util.kotlin.basic.tryCastOrNull
+import de.honoka.sdk.util.kotlin.lang.tryBlock
+import de.honoka.sdk.util.kotlin.lang.tryCastOrNull
 import de.honoka.sdk.util.kotlin.reflect.setInstanceProp
 import de.honoka.sdk.util.kotlin.text.toJsonObject
+import de.honoka.sdk.util.kotlin.various.RemoteInvokeException
 import de.honoka.sdk.util.web.ApiResponse
 import java.net.ConnectException
 import java.util.concurrent.ConcurrentHashMap
@@ -44,7 +44,7 @@ abstract class WebBusinessStub : BusinessStub() {
         }
         if(response.isBlank()) return null
         val resObj = response.toJsonObject().toBean<ApiResponse<Any?>>(ApiResponse::class.java)
-        if(!resObj.status) {
+        if(!resObj.success) {
             val e = RemoteInvokeException(
                 resObj.msg,
                 (resObj.data as JSONObject).getStr("stackTrace")

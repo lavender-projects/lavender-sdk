@@ -1,14 +1,8 @@
-version = commonLibs.versions.p.lavender.api.get()
+import de.honoka.gradle.util.dsl.common
+import de.honoka.gradle.util.dsl.libs
 
-java {
-    toolchain.languageVersion = JavaLanguageVersion.of(8)
-    withSourcesJar()
-}
+honoka.basic.publishing.version = libs.common.versions.p.lavender.api.get()
 
 dependencies {
-    compileOnly(commonLibs.honoka.kotlin.utils)
-}
-
-honoka.basic.publishing {
-    default()
+    compileOnly(libs.common.honoka.kotlin.utils)
 }
