@@ -1,7 +1,7 @@
 package de.honoka.lavender.api.util
 
 import de.honoka.lavender.api.util.LavsourceUtils.AbstractPart
-import de.honoka.sdk.util.kotlin.lang.DirectProxy
+import de.honoka.sdk.util.kotlin.various.DirectProxy
 
 class LavsourceUtils private constructor() {
 

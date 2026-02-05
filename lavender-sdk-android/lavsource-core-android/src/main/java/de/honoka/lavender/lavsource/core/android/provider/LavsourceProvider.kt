@@ -8,7 +8,7 @@ import de.honoka.sdk.util.android.basic.call
 import de.honoka.sdk.util.android.basic.global
 import de.honoka.sdk.util.android.basic.toFunctionArgs
 import de.honoka.sdk.util.android.provider.BaseContentProvider
-import de.honoka.sdk.util.kotlin.lang.tryCastOrNull
+import de.honoka.sdk.util.kotlin.various.tryCastOrNull
 import kotlin.reflect.KFunction
 import kotlin.reflect.full.declaredFunctions
 import kotlin.reflect.full.isSubtypeOf
