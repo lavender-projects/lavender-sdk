@@ -4,10 +4,10 @@ import cn.hutool.json.JSON
 import cn.hutool.json.JSONArray
 import cn.hutool.json.JSONObject
 import de.honoka.lavender.lavsource.core.android.util.LavenderApplicationUtils
-import de.honoka.sdk.util.android.basic.call
-import de.honoka.sdk.util.android.basic.global
-import de.honoka.sdk.util.android.basic.toFunctionArgs
 import de.honoka.sdk.util.android.provider.BaseContentProvider
+import de.honoka.sdk.util.android.provider.call
+import de.honoka.sdk.util.android.various.global
+import de.honoka.sdk.util.android.various.toFunctionArgs
 import de.honoka.sdk.util.kotlin.various.tryCastOrNull
 import kotlin.reflect.KFunction
 import kotlin.reflect.full.declaredFunctions

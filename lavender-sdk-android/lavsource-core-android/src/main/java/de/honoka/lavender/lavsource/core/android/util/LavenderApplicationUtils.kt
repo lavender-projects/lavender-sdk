@@ -1,8 +1,8 @@
 package de.honoka.lavender.lavsource.core.android.util
 
 import de.honoka.lavender.api.util.LavsourceUtils
-import de.honoka.sdk.util.android.basic.AbstractApplicationUtils
 import de.honoka.sdk.util.android.service.HttpServerService
+import de.honoka.sdk.util.android.various.AbstractApplicationUtils
 
 abstract class LavenderApplicationUtils : AbstractApplicationUtils() {
 

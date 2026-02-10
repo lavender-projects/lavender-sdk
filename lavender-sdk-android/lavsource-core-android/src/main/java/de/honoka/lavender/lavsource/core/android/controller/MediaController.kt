@@ -2,8 +2,8 @@ package de.honoka.lavender.lavsource.core.android.controller
 
 import de.honoka.lavender.api.business.MediaBusiness
 import de.honoka.lavender.lavsource.core.android.util.VideoUtils
-import de.honoka.sdk.util.android.server.ktor.GetMapping
-import de.honoka.sdk.util.android.server.ktor.RestController
+import de.honoka.sdk.util.android.web.server.ktor.GetMapping
+import de.honoka.sdk.util.android.web.server.ktor.RestController
 import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*

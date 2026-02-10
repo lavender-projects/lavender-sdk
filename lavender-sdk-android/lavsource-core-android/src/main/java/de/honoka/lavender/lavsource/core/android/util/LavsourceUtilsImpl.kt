@@ -1,7 +1,7 @@
 package de.honoka.lavender.lavsource.core.android.util
 
 import de.honoka.lavender.api.util.LavsourceUtils
-import de.honoka.sdk.util.android.server.DefaultHttpServer
+import de.honoka.sdk.util.android.web.server.DefaultHttpServer
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 

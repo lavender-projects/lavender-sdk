@@ -1,22 +1,7 @@
 import de.honoka.gradle.util.dsl.common
 import de.honoka.gradle.util.dsl.libs
 
-plugins {
-    alias(commonLibs.plugins.kotlin.spring)
-}
-
-honoka.basic {
-    publishing.version = libs.common.versions.p.lavsource.spring.boot.starter.get()
-
-    configs {
-        java(17)
-    }
-
-    dependencies {
-        springBootBom()
-        springBootConfigProcessor()
-    }
-}
+honoka.basic.publishing.version = libs.common.versions.p.lavsource.spring.boot.starter.get()
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
